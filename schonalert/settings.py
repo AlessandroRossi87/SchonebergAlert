@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['schoneberg-alert.herokuapp.com', 'localhost',
-                 '8000-alessandrorossi87-schone-o29nuro7ry.us2.codeanyapp.com']
+                 '8000-alessandrorossi87-schone-o29nuro7ry.us2.codeanyapp.com', 'schoneberg-alert-aa8dfa8e8adb.herokuapp.com']
 
 
 # Application definition
