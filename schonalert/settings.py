@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'cloudinary',
     'blog',
+    'post',
 ]
 
 MIDDLEWARE = [
