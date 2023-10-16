@@ -4,6 +4,7 @@ from post.models import Category, Post
 
 from .forms import SignupForm
 
+
 def home(request):
     posts = Post.objects.filter()[0:6]
     categories = Category.objects.all()
@@ -21,6 +22,6 @@ def contact(request):
 def signup(request):
     form = SignupForm()
 
-    return render(request, 'core/signup.html', {
+    return render(request, 'signup.html', {
         'form': form
     })
