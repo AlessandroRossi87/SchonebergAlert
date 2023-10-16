@@ -1,7 +1,10 @@
-from django.contrib import admin
 from django.urls import path, include
+from blog import views
+
+app_name = 'schonalert'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blog.urls')),
+    path('', views.home, name='home'),
+    path('contact/', views.contact, name='contact'),
+    path('blog/', include('blog.urls')),
 ]
