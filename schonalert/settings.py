@@ -34,6 +34,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['schoneberg-alert.herokuapp.com', 'localhost',
                  '8000-alessandrorossi87-schone-o29nuro7ry.us2.codeanyapp.com', 'schoneberg-alert-aa8dfa8e8adb.herokuapp.com']
 
+# Redirects you from the account/profile set up authomatically by Django
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
