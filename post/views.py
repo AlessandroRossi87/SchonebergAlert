@@ -5,6 +5,14 @@ from .forms import NewPostForm, EditPostForm
 from .models import Post
 
 
+def browse(request):
+    posts = Post.object.filter()
+
+    return render(request, 'post/browse.html', {
+        'posts': posts,
+    })
+
+
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
