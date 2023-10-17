@@ -16,18 +16,18 @@ def detail(request, pk):
 @login_required
 def new(request):
     if request.method == 'POST':
-        form = NewItemForm(request.POST, request.FILES)
+        form = NewPostForm(request.POST, request.FILES)
 
         if form.is_valid():
             post = form.save(commit=False)
             post.created_by = request.user
             post.save()
 
-            return redirect('post:detail, pk=post.id')
+            return redirect('post:detail', pk=post.id)
     else:
         form = NewPostForm()
 
     return render(request, 'post/form.html', {
-        'form': form
+        'form': form,
         'title': 'Post new Alert',
     })
