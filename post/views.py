@@ -1,15 +1,25 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewPostForm, EditPostForm
-from .models import Post
+from .models import Category, Post
 
 
 def browse(request):
-    posts = Post.object.filter()
+    query = request.GET.get('query', '')
+    category_id = request.GET.get('category_id', 0)
+    categories = Category.objects.all()
+    posts = Post.objects.all()
+
+    if query:
+        posts = posts.filter(Q(title__icontains=query)
+                             | Q(text__icontains=query))
 
     return render(request, 'post/browse.html', {
         'posts': posts,
+        'query': query,
+        'categories': categories,
     })
 
 
