@@ -8,9 +8,12 @@ from .models import Category, Post
 
 def browse(request):
     query = request.GET.get('query', '')
-    category_id = request.GET.get('category_id', 0)
+    category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
     posts = Post.objects.all()
+
+    if category_id:
+        posts = posts.filter(category_id=category_id)
 
     if query:
         posts = posts.filter(Q(title__icontains=query)
@@ -20,6 +23,7 @@ def browse(request):
         'posts': posts,
         'query': query,
         'categories': categories,
+        'category_id': int(category_id),
     })
 
 
