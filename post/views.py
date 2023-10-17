@@ -31,3 +31,11 @@ def new(request):
         'form': form,
         'title': 'Post new Alert',
     })
+
+
+@login_required
+def delete(request, pk):
+    post = get_object_or_404(Post, pk=pk, created_by=request.user)
+    post.delete()
+
+    return redirect('dashboard:index')
