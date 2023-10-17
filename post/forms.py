@@ -23,3 +23,20 @@ class NewPostForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             })
         }
+
+
+class EditPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'text', 'image',)
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'text': forms.Textarea(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'image': forms.FileInput(attrs={
+                'class': INPUT_CLASSES
+            })
+        }

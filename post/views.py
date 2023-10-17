@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import NewPostForm
+from .forms import NewPostForm, EditPostForm
 from .models import Post
 
 
@@ -39,3 +39,23 @@ def delete(request, pk):
     post.delete()
 
     return redirect('dashboard:index')
+
+
+@login_required
+def edit(request, pk):
+    post = get_object_or_404(Post, pk=pk, created_by=request.user)
+
+    if request.method == 'POST':
+        form = EditPostForm(request.POST, request.FILES, instance=post)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('post:detail', pk=post.id)
+    else:
+        form = EditPostForm(instance=post)
+
+    return render(request, 'post/form.html', {
+        'form': form,
+        'title': 'Edit Alert',
+    })
