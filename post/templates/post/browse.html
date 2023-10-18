@@ -55,7 +55,9 @@
       <div>
         <a href="{% url 'post:detail' post.id %}">
           <div>
+            {% if post.image %}
             <img src="{{ post.image.url }}" class="rounded-t-xl" />
+            {% endif %}
           </div>
 
           <div class="p-6 bg-white rounded-b-xl">

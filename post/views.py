@@ -34,6 +34,24 @@ def detail(request, pk):
         'post': post
     })
 
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+
+    else:
+        comment_form = CommentForm()
+
+    return render(request, template_name, {
+        'post': post,
+        'comments': comments,
+        'new_comment': new_comment,
+        'comment_form': comment_form,
+    })
+
 
 @login_required
 def new(request):
@@ -99,6 +117,10 @@ def comment(request, pk):
     else:
         form = CommentForm()
 
-    return render(request, 'post/form.html', {
-        'form': form
+    comments = Comment.objects.filter(post=post)
+
+    return render(request, 'post/detail.html', {
+        'post': post,
+        'form': form,
+        'comments': comments,
     })
