@@ -31,7 +31,7 @@
     <p class="text-gray-500">
       <strong>Add a comment:</strong>
     </p>
-    <form method="post" action="{% url 'comment' post_id=post.id %}">
+    <form method="post" action="{% url 'post:comment' post.id %}">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Add comment!</button>
     </form>

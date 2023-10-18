@@ -90,8 +90,9 @@ def comment(request, pk):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save()
+            comment = form.save(commit=False)
             comment.post = post
+            comment.created_by = request.user
             comment.save()
             return redirect('post:detail', pk=post.id)
 
