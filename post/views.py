@@ -98,26 +98,26 @@ def edit(request, pk):
     })
 
 
-@login_required
-def comment(request, pk):
-    post = Post.objects.get(pk=pk)
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.created_by = request.user
-            comment.save()
-            return redirect('post:detail', pk=post.id)
-
-    else:
-        form = CommentForm()
-
-    comments = Comment.objects.filter(post=post)
-
-    return render(request, 'post/detail.html', {
-        'post': post,
-        'form': form,
-        'comments': comments,
-    })
+# @login_required
+# def comment(request, pk):
+#    post = Post.objects.get(pk=pk)
+#
+#    if request.method == 'POST':
+#        form = CommentForm(request.POST)
+#        if form.is_valid():
+#            comment = form.save(commit=False)
+#            comment.post = post
+#            comment.created_by = request.user
+#            comment.save()
+#            return redirect('post:detail', pk=post.id)
+#
+#    else:
+#        form = CommentForm()
+#
+#    comments = Comment.objects.filter(post=post)
+#
+#    return render(request, 'post/detail.html', {
+#        'post': post,
+#        'form': form,
+#        'comments': comments,
+#    })
