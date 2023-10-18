@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post
+from .models import Post, Comment
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 
@@ -40,3 +40,9 @@ class EditPostForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             })
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text',)

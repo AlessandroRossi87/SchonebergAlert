@@ -25,3 +25,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    text = models.TextField(blank=True, null=True)
+    created_by = models.ForeignKey(
+        User, related_name='posts', on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
