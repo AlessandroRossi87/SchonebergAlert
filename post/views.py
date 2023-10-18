@@ -93,7 +93,7 @@ def comment(request, pk):
             comment = form.save()
             comment.post = post
             comment.save()
-            return redirect('post:detail', ok=post.id)
+            return redirect('post:detail', pk=post.id)
 
     else:
         form = CommentForm()
