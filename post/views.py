@@ -30,10 +30,6 @@ def browse(request):
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
-    return render(request, 'post/detail.html', {
-        'post': post
-    })
-
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
 
@@ -45,10 +41,11 @@ def detail(request, pk):
     else:
         comment_form = CommentForm()
 
-    return render(request, template_name, {
+    comments = post.comments.all()
+
+    return render(request, 'post/detail.html', {
         'post': post,
         'comments': comments,
-        'new_comment': new_comment,
         'comment_form': comment_form,
     })
 
