@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import NewPostForm, EditPostForm
-from .models import Category, Post
+from .forms import NewPostForm, EditPostForm, CommentForm
+from .models import Category, Post, Comment
 
 
 def browse(request):
@@ -80,4 +80,24 @@ def edit(request, pk):
     return render(request, 'post/form.html', {
         'form': form,
         'title': 'Edit Alert',
+    })
+
+
+@login_required
+def comment(request, pk):
+    post = Post.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save()
+            comment.post = post
+            comment.save()
+            return redirect('post:detail', ok=post.id)
+
+    else:
+        form = CommentForm()
+
+    return render(request, 'post/form.html', {
+        'form': form
     })
