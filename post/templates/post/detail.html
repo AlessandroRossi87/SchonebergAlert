@@ -16,7 +16,18 @@
 
     {% if post.text %}
     <p class="text-gray-700">{{ post.text }}</p>
-    {% endif %} {% if request.user == post.created_by %}
+    {% endif %}
+    <p class="text-gray-500">
+      <strong>Comments:</strong>
+    </p>
+    {% for comment in comments %}
+    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+      <p>{{ comment.text }}</p>
+      <p>Posted by: {{ comment.created_by.username }}</p>
+    </div>
+    {% empty %}
+    <p>No comments yet.</p>
+    {% endfor %} {% if request.user == post.created_by %}
     <div class="mt-6 p-6 bg-white rounded-xl">
       <p>This is your Alert!</p>
 
