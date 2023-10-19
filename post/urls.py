@@ -11,5 +11,5 @@ urlpatterns = [
     path('<int:pk>/', views.detail, name='detail'),
     path('<int:pk>/delete/', views.delete, name='delete'),
     path('<int:pk>/edit/', views.edit, name='edit'),
-    # path('comment/<int:pk>', views.comment, name='comment'),
+    path('<int:pk>/category/', views.category, name='category'),
 ]

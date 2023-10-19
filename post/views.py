@@ -50,6 +50,16 @@ def detail(request, pk):
     })
 
 
+def category(request, category_name):
+    category = get_object_or_404(Category, id=category_name)
+    posts = Post.objects.filter(category=category, active=True, pk=pk)
+
+    return render(request, 'home.html', {
+        'category': category,
+        'posts': posts,
+    })
+
+
 @login_required
 def new(request):
     if request.method == 'POST':
@@ -96,28 +106,3 @@ def edit(request, pk):
         'form': form,
         'title': 'Edit Alert',
     })
-
-
-# @login_required
-# def comment(request, pk):
-#    post = Post.objects.get(pk=pk)
-#
-#    if request.method == 'POST':
-#        form = CommentForm(request.POST)
-#        if form.is_valid():
-#            comment = form.save(commit=False)
-#            comment.post = post
-#            comment.created_by = request.user
-#            comment.save()
-#            return redirect('post:detail', pk=post.id)
-#
-#    else:
-#        form = CommentForm()
-#
-#    comments = Comment.objects.filter(post=post)
-#
-#    return render(request, 'post/detail.html', {
-#        'post': post,
-#        'form': form,
-#        'comments': comments,
-#    })
