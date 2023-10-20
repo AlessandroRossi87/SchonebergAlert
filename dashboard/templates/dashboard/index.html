@@ -9,7 +9,7 @@
   <div class="grid grid-cols-3 gap-3">
     {% for post in posts %}
     <div>
-      <a href="{% url 'post:detail' post.id %}">
+      <a href="{% url 'blog:detail' post.id %}">
         <div>
           {% if post.image %}
           <img src="{{ post.image.url }}" class="rounded-t-xl" />

@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'cloudinary',
     'blog',
-    'post',
     'dashboard',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [

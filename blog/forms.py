@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from .models import Post, Comment
+
+INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 
 
 class LoginForm(AuthenticationForm):
@@ -35,3 +38,46 @@ class SignupForm(UserCreationForm):
         'placeholder': 'Repeat password',
         'class': 'w-full py-4 px-6 rounded-xl'
     }))
+
+
+class NewPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('category', 'title', 'text', 'image',)
+        widgets = {
+            'category': forms.Select(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'title': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'text': forms.Textarea(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'image': forms.FileInput(attrs={
+                'class': INPUT_CLASSES
+            })
+        }
+
+
+class EditPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'text', 'image',)
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'text': forms.Textarea(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'image': forms.FileInput(attrs={
+                'class': INPUT_CLASSES
+            })
+        }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('created_by', 'text',)
