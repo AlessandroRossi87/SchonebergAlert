@@ -7,9 +7,9 @@ admin.site.register(Category)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('created_by', 'text', 'post', 'created_on', 'active')
-    list_filter = ('active', 'created_on')
-    search_fields = ('created_by__username', 'text')
+    list_display = ('name', 'text', 'post', 'created_on', 'approved')
+    list_filter = ('approved', 'created_on')
+    search_fields = ('name', 'text')
     actions = ['publish_comments']
 
     def publish_comments(self, request, queryset):
@@ -20,9 +20,9 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'created_by', 'created_on')
+    list_display = ('title', 'category', 'name', 'created_on')
     list_filter = ('category', 'created_on')
-    search_fields = ('title', 'created_by__username')
+    search_fields = ('title', 'name')
     actions = ['publish_posts']
 
     def publish_posts(self, request, queryset):

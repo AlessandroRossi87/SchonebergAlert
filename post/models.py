@@ -1,5 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
+from cloudinary.models import CloudinaryField
+
+
+STATUS = ((0, "Draft"), (1, "Published"))
 
 
 class Category(models.Model):
@@ -22,6 +26,7 @@ class Post(models.Model):
     created_by = models.ForeignKey(
         User, related_name='posts', on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(choices=STATUS, default=0)
 
     def __str__(self):
         return self.title
@@ -30,14 +35,14 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=80)
     text = models.TextField(blank=True, null=True)
-    created_by = models.ForeignKey(
-        User, related_name='comments', on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['created_on']
 
     def __str__(self):
-        return f'Comment by {self.text} by {self.created_by}'
+        return f'Comment by {self.text} by {self.name}'

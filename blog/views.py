@@ -1,8 +1,16 @@
 from django.shortcuts import render, redirect
+from django.views import generic, View
 
 from post.models import Category, Post
 
 from .forms import SignupForm
+
+
+class PostList(generic.ListView):
+    model = Post
+    queryset = Post.objects.filter(status=1).order_by("-created_on")
+    template_name = "home.html"
+    paginate_by = 8
 
 
 def home(request):
